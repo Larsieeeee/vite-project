@@ -20,6 +20,7 @@
     </div>
 
     <h2 v-if="winner" class="text-6x1 font-bold mb-8">Speler '{{ winner }}' wint!</h2>
+    <h2 v-else-if="tie" class="text-3xl font-bold mb-8">Gelijkspel!</h2>
 
     <button @click="ResetGame" class="px-4 py-2 bg-pink-500 rounded uppercase font-bold hover:bg-pink-600 duration-300">Reset Spel</button>
   </main>
@@ -56,6 +57,7 @@ const calculateWinner = (squares)=> {
 }
 
 const winner = computed(() => calculateWinner(board.value.flat()))
+const tie = computed(() => !winner.value && board.value.flat().every(cell => cell !== ''))
 
 const MakeMove = (x, y) => {
   if(winner.value) return
